@@ -1,0 +1,70 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	 <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+	
+	
+	
+	<title>My Book List</title>
+</head>
+
+<body>
+<div class="container">
+
+	<h3>My Book List</h3>
+	<hr>
+	<form th:action="@{/book/search}" class="form-inline">
+		<a th:href="@{/book/save}"
+			class="btn btn-primary btn-sm mr-5 mb-3">
+			Add Book
+		</a>
+
+		<input class="form-control  ml-5 mr-sm-2 mb-3" type="search" name="name" placeholder="Search by Book Name" />
+
+		<button class="btn btn-success mb-3" type="submit">Search</button>
+    </form>	
+	
+	<table class="table table-bordered table-striped">
+		<thead class="thead-dark">
+			<tr>
+				<th>ID</th>
+				<th>BookName</th>
+				<th>PublishDate</th>
+				<th>Description</th>
+				<th>Author</th>
+			</tr>
+		</thead>
+		
+		<tbody>
+			<tr th:each="Book : ${book}">
+				<td th:text="${Book.bookId}"></td>
+				<td th:text="${Book.name}"></td>
+				<td th:text="${Book.publishDate}"></td>
+				<td th:text="${Book.description}"></td>
+				<td th:text="${Book.author}"></td>
+				<td>
+				<a th:href="@{/book/update(bookId=${Book.bookId})}"
+				class="btn btn-info btn-sm">
+				Update
+				</a>
+				<a th:href="@{/book/delete(bookId=${Book.bookId})}"
+				class="btn btn-danger btn-sm" onclick="if (!(confirm('Kitabı silmek üzeresiniz, devam etmek istiyor musunuz?'))) return false">
+				Delete
+				</a>
+				
+				</td>
+				
+			</tr>
+		</tbody>		
+	</table>
+
+	
+	</div>
+</body>
+</html>
